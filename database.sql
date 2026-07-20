@@ -1,3 +1,6 @@
+-- Creacion de la base de datos y esquema inicial
+CREATE DATABASE proyectom2;
+
 -- Creación de la tabla de Autores
 CREATE TABLE IF NOT EXISTS authors (
     id SERIAL PRIMARY KEY,

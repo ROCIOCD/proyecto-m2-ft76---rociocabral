@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const commentsService = '../services/commentsService';
+const commentsService =  require('../services/commentsService'); 
 
 const router = Router();
 

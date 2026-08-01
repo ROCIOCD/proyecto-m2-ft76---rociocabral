@@ -9,6 +9,7 @@ const swaggerDocument = require('./swagger.json');
 // Importamos las rutas
 const authorsRouter = require('./src/routes/authorsRouter');
 const postsRouter = require('./src/routes/postsRouter');
+const commentsRouter = require('./src/routes/commentsRouter'); // <--- 1. IMPORTAMOS EL ROUTER DE COMMENTS
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Le decimos a Express que use nuestras rutas
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter); // <--- 2. MONTAMOS EL ROUTER EN LA RUTA /comments
 
 // Ruta base de prueba
 app.get('/', (req, res) => {

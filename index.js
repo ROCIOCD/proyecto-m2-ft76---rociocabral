@@ -32,7 +32,28 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`📚 Documentación disponible en http://localhost:${PORT}/api-docs`);
+// --- FUNCIÓN PARA CREAR LA TABLA AUTOMÁTICAMENTE ---
+const initDB = async () => {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS comments (
+                id SERIAL PRIMARY KEY,
+                post_id INTEGER NOT NULL,
+                author_id INTEGER NOT NULL,
+                content TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        `);
+        console.log('✅ Tabla "comments" verificada o creada correctamente.');
+    } catch (error) {
+        console.error('❌ Error al inicializar la tabla:', error);
+    }
+};
+
+// --- INICIALIZAMOS LA BD Y LUEGO LEVANTAMOS EL SERVIDOR ---
+initDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
+        console.log(`📚 Documentación disponible en /api-docs`);
+    });
 });
